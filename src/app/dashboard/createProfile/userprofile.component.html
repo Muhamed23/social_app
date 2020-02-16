@@ -1,0 +1,115 @@
+<br>
+<div class="container">
+  <div class="col-md-6 m-auto">
+    <div class="card">
+      <div class="card-header">
+        Hi {{userEmail.split('@')[0]}} Create your profile.
+      </div>
+      <div class="card-body">
+        <form [formGroup]="profileForm" (ngSubmit)="createProfile()">
+          <fieldset>
+
+            <!-- <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="text" readonly="" class="form-control-plaintext" id="staticEmail"
+                  value="">
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp"
+                placeholder="Enter email">
+              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            <div class="form-group">
+              <label for="firstname">First Name</label>
+              <input type="text" class="form-control" formControlName="firstName" id="firstname"
+                placeholder="First Name">
+            </div>
+
+            <div class="form-group">
+              <label for="firstname">Last Name</label>
+              <input type="text" class="form-control" formControlName="lastName" id="lastname" placeholder="Last Name">
+            </div>
+
+            <div class="form-group">
+              <label for="firstname">Phone Number</label>
+              <input type="text" class="form-control" formControlName="phone" id="phone" placeholder="Phone Number">
+            </div>
+
+            <div class="form-group">
+              <label class="mr-1" for="">Male</label>
+              <input type="radio" formControlName="gender" class="mr-1" value="Male" id="male">
+              <label class="mr-1" for="">Female</label>
+
+              <input type="radio" formControlName="gender" value="Female" id="female">
+
+            </div>
+
+            <div class="form-group">
+              <label for="profession">Profession</label>
+
+              <select class="form-control" formGroupName="profession" (change)="setPosition($event)">
+                <option value="">Select Option</option>
+                <option *ngFor="let pos of workPositions" [value]="pos">{{pos}}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="Description">Description</label>
+              <textarea class="form-control" formControlName="description" id="Description" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <!-- <button class="btn btn-info">Add Skills</button> -->
+              <button type="button" class="btn btn-info" (click)="openModal(template)">Add Skills</button>
+
+              <ng-template #template>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Skills</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="btn-group mr-2">
+                    <input type="text" [(ngModel)]="skillValue" [ngModelOptions]="{standalone: true}"
+                      class="form-control" placeholder="Skill (ex: Web Developer)">
+                    <button class="btn btn-primary" [disabled]="skillValue && (rate > 0) ? false : true"
+                      (click)="addToSkills()">Add</button>
+                  </div>
+                  <label style="font-weight:500" class="mr-2" for="">Knowledge Rate: </label>
+                  <rating [(ngModel)]="rate" [ngModelOptions]="{standalone: true}" [max]="max"
+                    (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let skill of skills">
+                        {{skill.name}}
+
+                        <span class="badge badge-primary badge-pill">{{skill.rate}}</span>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+
+
+
+
+            <button type="submit" [disabled]="!profileForm.valid" class="btn btn-primary">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
